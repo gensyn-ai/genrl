@@ -34,7 +34,11 @@ def setup_web3(url: str) -> Web3:
     if web3.is_connected():
         logger.info("✅ Connected to Gensyn Testnet")
     else:
-        raise Exception("Failed to connect to Gensyn Testnet")
+        try:
+            web3.eth.block_number
+            logger.info("✅ Connected to Gensyn Testnet")
+        except Exception:
+            raise Exception("Failed to connect to Gensyn Testnet")
     return web3
 
 
